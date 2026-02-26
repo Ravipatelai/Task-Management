@@ -110,8 +110,8 @@ exports.logout = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
     expires: new Date(0),
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    secure: true,
+    sameSite: "none",
   });
   res.json({ message: "Logged out" });
 };
