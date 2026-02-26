@@ -1,155 +1,155 @@
-# Task Management Application
+Task Management Application
 
-A production-ready full-stack Task Management Application built to demonstrate strong backend architecture, authentication, security best practices, database handling, frontend integration, and deployment strategies.
+A production-ready full-stack Task Management Application demonstrating backend architecture, authentication, security best practices, database handling, frontend integration, and deployment strategies.
 
----
-
-## 🚀 Objective
+🚀 Objective
 
 Build and deploy a secure and scalable Task Management system that demonstrates:
 
-- Clean backend architecture
-- JWT-based authentication
-- Strong security practices
-- Proper database handling
-- Frontend integration
-- Production deployment
+Clean backend architecture
 
----
+JWT-based authentication
 
-**Live URL:** [Add your deployed link here]  
-**GitHub Repository:** [https://github.com/Ravipatelai/Task-Management]  
+Strong security practices
 
----
+Proper database handling
 
+Frontend integration
 
-## Overview
-This is a **full-stack Task Management Application** built to allow users to manage tasks efficiently.  
-Users can **register, login, create, update, delete, search, and filter tasks**.  
-The application demonstrates **JWT-based authentication**, **secure password hashing**, proper validation, error handling, and frontend-backend integration.
+Production deployment
 
----
+Live URL: [Add your deployed link here]
+GitHub Repository: https://github.com/Ravipatelai/Task-Management
 
-## Tech Stack
-- **Backend:** Node.js, Express.js  
-- **Frontend:** React  
-- **Database:** MongoDB 
-- **Authentication:** JWT stored in HTTP-only cookies  
-- **Deployment:** Vercel 
-- **Other:** bcrypt (password hashing), dotenv (environment variables)  
+Overview
 
----
+This is a full-stack Task Management Application built to allow users to manage tasks efficiently.
 
-## Features
-- **User Authentication:** Registration, Login, Logout  
-- **Secure JWT Authentication** with HTTP-only cookies  
-- **CRUD Operations for Tasks:**  
-  - Create Task (Title, Description, Status, Created Date)  
-  - Read Tasks with **Pagination**, **Status Filter**, **Title Search**  
-  - Update Task  
-  - Delete Task  
-- **Authorization:** Users can only access their own tasks  
-- **Validation & Error Handling:** Input validations and structured error messages  
-- **Frontend Protection:** Protected routes for logged-in users  
+Users can register, login, create, update, delete, search, and filter tasks.
 
----
+The application demonstrates JWT-based authentication, secure password hashing, proper validation, error handling, and frontend-backend integration.
 
-## Architecture
-Frontend (React )
-   |
-   |  HTTP Requests (axios/fetch)
-   |
+Tech Stack
+
+Backend: Node.js, Express.js
+
+Frontend: React
+
+Database: MongoDB
+
+Authentication: JWT stored in HTTP-only cookies
+
+Deployment: Vercel
+
+Other: bcrypt (password hashing), dotenv (environment variables)
+
+Features
+
+User Authentication: Registration, Login, Logout
+
+Secure JWT Authentication with HTTP-only cookies
+
+CRUD Operations for Tasks:
+
+Create Task (Title, Description, Status, Created Date)
+
+Read Tasks with Pagination, Status Filter, Title Search
+
+Update Task
+
+Delete Task
+
+Authorization: Users can only access their own tasks
+
+Validation & Error Handling: Input validations and structured error messages
+
+Frontend Protection: Protected routes for logged-in users
+
+Architecture
+Frontend (React)
+       |
+       | HTTP Requests (axios/fetch)
+       |
 Backend (Node.js + Express)
-   |
-   |  REST APIs with JWT Authentication
-   |
+       |
+       | REST APIs with JWT Authentication
+       |
 Database (MongoDB)
-
----
-
-## Folder Structure
+Folder Structure
 Task-Management/
 │
-├── backend/                     # Backend server
-│   ├── config/                  # Database models
+├── backend/                     
+│   ├── config/                  
 │   │   └── db.js
 │   │   
-│   ├── controllers/             # API route handlers
+│   ├── controllers/             
 │   │   ├── authController.js
 │   │   └── taskController.js
 │   │
-│   ├── middleware/              # Middleware functions
-│   │   ├── authMiddleware.js    # JWT verification & protected routes
-│   │   └── errorMiddleware.js   # Global error handler
+│   ├── middleware/              
+│   │   ├── authMiddleware.js    
+│   │   └── errorMiddleware.js   
 │   │
-│   ├── models/                  # Database models
+│   ├── models/                  
 │   │   ├── User.js
 │   │   └── Task.js
 │   │
-│   ├── routes/                  # Express routes
+│   ├── routes/                  
 │   │   ├── authRoutes.js
 │   │   └── taskRoutes.js
 │   │
-│   ├── utils/                   # Utility functions
+│   ├── utils/                   
 │   │   └── generateToken.js
 │   │
-│   ├── .env                     # Environment variables (not committed)
+│   ├── .env                     
 │   ├── package.json
-│   └── server.js                # Main entry point
+│   └── server.js                
 │
-├── frontend/                     # Frontend client
-│   ├── public/                   # Static assets (images, favicon, etc.)
+├── frontend/                     
+│   ├── public/                   
 │   ├── src/
-│   │   ├── api/                  # Axios instance or API calls
+│   │   ├── api/                  
 │   │   │   └── axios.js
 │   │   │
 │   │   ├── components/ 
-│   │   │   ├── ProtectedRoutes.jsx         # Reusable UI components
+│   │   │   ├── ProtectedRoutes.jsx
 │   │   │   ├── TaskForm.jsx
 │   │   │   └── TaskList.jsx
 │   │   │
-│   │   ├── context/              # React context for auth/user
+│   │   ├── context/              
 │   │   │   └── AuthContext.jsx
 │   │   │
-│   │   ├── css/                  # CSS / styling files
+│   │   ├── css/                  
 │   │   │   ├── dashboard.css
 │   │   │   ├── register.css
 │   │   │   ├── login.css
-│   │   │   ├── tacks.css
+│   │   │   ├── tasks.css
 │   │   │   └── taskform.css
 │   │   │
-│   │   ├── pages/                # React/Next.js pages
+│   │   ├── pages/                
 │   │   │   ├── Dashboard.jsx
 │   │   │   ├── Login.jsx
 │   │   │   └── Register.jsx
 │   │   │
-│   │   │
-│   │   └── App.jsx               # Main React component
-│   │   │
+│   │   └── App.jsx               
 │   │   └── App.css            
 │   │
 │   ├── package.json
-│   └── vite.config.js             # Build config
+│   └── vite.config.js             
 │
-└── README.md                     # Project documentation
-
----
-
-
-# 🌐 API Documentation (Sample)
-
-## Register
+└── README.md                     
+🌐 API Documentation (Sample)
+Register
 
 POST /api/auth/register
 
 Request:
-```json
+
 {
   "name": "John Doe",
   "email": "john@example.com",
   "password": "StrongPassword123"
 }
-
 
 Response:
 
@@ -185,26 +185,38 @@ Response:
     "total": 25
   }
 }
-🧠 Error Handling Format
+Error Handling Format
 {
   "success": false,
   "error": "Validation Error",
   "message": "Title is required"
 }
-
----
-
-## Local Setup Instructions
+Local Setup Instructions
 1. Clone Repository
 git clone <your-repo-url>
-cd task-manager
+cd Task-Management
 2. Install Dependencies
 npm install
-3. Configure Environment Variables
+Backend Setup
+cd backend
+npm install
+Frontend Setup
+cd ../frontend
+npm install
+Environment Variables
 
-Create a .env file as shown above.
+Create a .env file in the backend folder:
 
-4. Run Application
+PORT=5000
+MONGO_URI=<your-mongo-db-connection-string>
+JWT_SECRET=<your-jwt-secret>
+NODE_ENV=development
+Run Application
+Backend
+cd backend
+npm run dev
+Frontend
+cd frontend
 npm run dev
 🌍 Deployment
 
@@ -217,28 +229,3 @@ Secure cookie configuration in production
 Environment variables configured in cloud provider
 
 Proper CORS configuration
-
----
-
-## Backend Setup
-cd backend
-npm install
-
-## Frontend Setup
-cd ../frontend
-npm install
-
-## Environment Variables
-PORT=5000
-MONGO_URI=<your-mongo-db-connection-string>
-JWT_SECRET=<your-jwt-secret>
-NODE_ENV=development
-
-## Run Application
-# Backend
-cd backend
-npm run dev
-
-# Frontend
-cd frontend
-npm run dev
