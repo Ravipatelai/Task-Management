@@ -4,12 +4,12 @@ import TaskList from "../components/TaskList";
 import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../css/Dashboard.css"; // Import the CSS
+import "../css/dashboard.css";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all"); // all | completed | pending
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function Dashboard() {
       const { data } = await API.get("/tasks");
       setTasks(data.tasks);
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      console.error("Fetch Error:", err.response?.data || err.message);
     }
   };
 
@@ -28,45 +28,52 @@ export default function Dashboard() {
   }, []);
 
   const handleLogout = async () => {
-    await API.post("/auth/logout"); // clears cookie
-    setUser(null);
+    try {
+      await API.post("/auth/logout");
+      setUser(null);
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
   };
 
-  // Apply search & filter
   const filteredTasks = tasks
     .filter((task) => task.title.toLowerCase().includes(search.toLowerCase()))
     .filter((task) => (statusFilter === "all" ? true : task.status === statusFilter));
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-header">
-        <h2>Dashboard</h2>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
+    <div className="dashboard-wrapper">
+      <div className="dashboard-container">
+        <header className="dashboard-header">
+          <h2>Task Management</h2>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        </header>
 
-      {/* Search and Filter */}
-      <div className="search-filter-container">
-        <input
-          className="search-input"
-          placeholder="Search by title..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <select
-          className="filter-select"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-        </select>
-      </div>
+        <div className="search-filter-container">
+          <input
+            className="search-input"
+            placeholder="Search tasks..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <select
+            className="filter-select"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
 
-      <TaskForm fetchTasks={fetchTasks} />
-      <TaskList tasks={filteredTasks} fetchTasks={fetchTasks} />
+        <TaskForm fetchTasks={fetchTasks} />
+        
+        <div className="task-section">
+          <h3>Your Tasks ({filteredTasks.length})</h3>
+          <TaskList tasks={filteredTasks} fetchTasks={fetchTasks} />
+        </div>
+      </div>
     </div>
   );
 }

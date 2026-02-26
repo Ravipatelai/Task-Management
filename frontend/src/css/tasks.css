@@ -1,0 +1,106 @@
+.task-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.task-card {
+  background: white;
+  border-left: 5px solid #dfe6e9;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Status colors */
+.task-card.completed {
+  border-left-color: #2ecc71;
+  background-color: #f9fffb;
+}
+
+.task-card.pending {
+  border-left-color: #f1c40f;
+}
+
+.task-title {
+  margin: 0 0 5px 0;
+  color: #2d3436;
+  font-size: 1.1rem;
+}
+
+.task-card.completed .task-title {
+  text-decoration: line-through;
+  color: #b2bec3;
+}
+
+.task-desc {
+  color: #636e72;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: #eee;
+}
+
+.status-badge.completed { background: #d1f7e1; color: #27ae60; }
+.status-badge.pending { background: #fff4d1; color: #9a7d0a; }
+
+.view-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Action Buttons */
+.task-actions button {
+  border: none;
+  background: #f1f2f6;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.status-btn:hover { background: #2ecc71; color: white; }
+.edit-btn:hover { background: #3498db; color: white; }
+.delete-btn:hover { background: #e74c3c; color: white; }
+
+/* Edit Mode Styles */
+.edit-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-input, .edit-textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.save-btn { background: #2ecc71; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }
+.cancel-btn { background: #95a5a6; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }

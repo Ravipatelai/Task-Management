@@ -1,83 +1,93 @@
 import { useState, useContext } from "react";
 import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "../css/login.css";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState([]);      // All backend errors
+  const [success, setSuccess] = useState("");    // Success message
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors([]);
+    setSuccess("");
+
     try {
       const { data } = await API.post("/auth/login", form);
-      setUser(data);
-      navigate("/dashboard");
+
+      if (data.success) {
+        setUser(data.data);             // Save user info in context
+        setSuccess(data.message);       // Show login success
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1500);
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      // Handle all backend errors clearly
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors);
+      } else if (err.response?.data?.message) {
+        setErrors([err.response.data.message]);
+      } else {
+        setErrors(["Login failed"]);
+      }
     }
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "50px auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        backgroundColor: "#f9f9f9",
-        textAlign: "center",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h2 style={{ marginBottom: "20px", color: "#333" }}>Login</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-        <input
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          style={{
-            marginBottom: "15px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-          type="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          style={{
-            marginBottom: "20px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-          required
-        />
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            border: "none",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          Login
-        </button>
-      </form>
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h2 className="auth-title">Welcome Back</h2>
+
+       
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="input-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              placeholder="name@example.com"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+          </div>
+
+          <button type="submit" className="auth-submit-btn">
+            Login
+          </button>
+        </form>
+        
+ {/* Success message */}
+        {success && <p className="success-text">{success}</p>}
+
+        {/* Display all backend errors */}
+        {errors.length > 0 && (
+          <div className="auth-errors">
+            {errors.map((error, index) => (
+              <p key={index} className="error-text">
+                {error}
+              </p>
+            ))}
+          </div>
+        )}
+        <p className="auth-footer">
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
+      </div>
     </div>
   );
 }

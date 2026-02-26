@@ -1,93 +1,95 @@
 import { useState } from "react";
 import API from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "../css/register.css";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [errors, setErrors] = useState([]);   // backend errors
+  const [success, setSuccess] = useState(""); // success message
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors([]);
+    setSuccess("");
+
     try {
-      await API.post("/auth/register", form);
-      navigate("/login");
+      const { data } = await API.post("/auth/register", form);
+
+      if (data.success) {
+        setSuccess(data.message); // show "Registration successful"
+        // Redirect to login after 1.5 seconds
+        setTimeout(() => navigate("/login"), 1500);
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors); // show all validation errors
+      } else if (err.response?.data?.message) {
+        setErrors([err.response.data.message]); // show single backend message
+      } else {
+        setErrors(["Registration failed"]); // fallback
+      }
     }
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "50px auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        backgroundColor: "#f9f9f9",
-        textAlign: "center",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h2 style={{ marginBottom: "20px", color: "#333" }}>Register</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-        <input
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          style={{
-            marginBottom: "15px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-          required
-        />
-        <input
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          style={{
-            marginBottom: "15px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-          type="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          style={{
-            marginBottom: "20px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-          required
-        />
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            border: "none",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          Register
-        </button>
-      </form>
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h2 className="auth-title">Create Account</h2>
+
+       
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="input-group">
+            <label>Full Name</label>
+            <input
+              placeholder="Enter your name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              placeholder="name@example.com"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+          </div>
+
+          <button type="submit" className="auth-submit-btn">
+            Register
+          </button>
+        </form>
+         {/* Display success message */}
+        {success && <p className="success-text">{success}</p>}
+
+        {/* Display all backend errors */}
+        {errors.length > 0 && (
+          <div className="auth-errors">
+            {errors.map((error, index) => (
+              <p key={index} className="error-text">{error}</p>
+            ))}
+          </div>
+        )}
+
+        <p className="auth-footer">
+          Already have an account? <Link to="/login">Login here</Link>
+        </p>
+      </div>
     </div>
   );
 }

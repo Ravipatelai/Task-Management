@@ -1,194 +1,74 @@
-/* Dashboard Container */
-.dashboard-container {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f5f6fa;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+  --primary: #4a90e2;
+  --danger: #ff5252;
+  --success: #2ecc71;
+  --bg-gray: #f4f7f6;
+  --text-dark: #2d3436;
 }
 
-/* Header */
+.dashboard-wrapper {
+  background-color: var(--bg-gray);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-}
-
-.dashboard-header h2 {
-  font-size: 28px;
-  color: #2f3640;
+  margin-bottom: 30px;
 }
 
 .logout-btn {
-  padding: 8px 18px;
-  background-color: #e84118;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 6px 15px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s;
 }
 
 .logout-btn:hover {
-  background-color: #c23616;
+  background: var(--danger);
+  color: white;
 }
 
-/* Search and Filter */
 .search-filter-container {
   display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.search-input {
-  flex: 1;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #dcdde1;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease;
-}
-
-.search-input:focus {
-  border-color: #718093;
-}
-
-.filter-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #dcdde1;
-  font-size: 16px;
-  background-color: white;
-  cursor: pointer;
-  outline: none;
-  transition: border 0.3s ease;
-}
-
-.filter-select:focus {
-  border-color: #718093;
-}
-
-/* Task Form */
-form {
-  display: flex;
   gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  margin-bottom: 25px;
 }
 
-form input {
-  flex: 1;
-  padding: 10px 14px;
+.search-input, .filter-select {
+  padding: 12px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  border: 1px solid #dcdde1;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease;
-}
-
-form input:focus {
-  border-color: #718093;
-}
-
-form button {
-  padding: 10px 20px;
-  background-color: #0097e6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-form button:hover {
-  background-color: #40739e;
-}
-
-/* Task List */
-.task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.task-item {
-  background-color: white;
-  padding: 14px 18px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.task-item:hover {
-  transform: translateY(-2px);
-}
-
-.task-item .title {
-  font-weight: 600;
-  color: #2f3640;
-}
-
-.task-item .description {
   font-size: 14px;
-  color: #718093;
 }
 
-.task-item .actions button {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 6px;
-  transition: background-color 0.3s ease;
+.search-input { flex: 3; }
+.filter-select { flex: 1; cursor: pointer; }
+
+/* Form and List spacing */
+.task-section {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
 }
 
-.task-item .actions .edit-btn {
-  background-color: #00a8ff;
-  color: white;
-}
-
-.task-item .actions .edit-btn:hover {
-  background-color: #0097e6;
-}
-
-.task-item .actions .delete-btn {
-  background-color: #e84118;
-  color: white;
-}
-
-.task-item .actions .delete-btn:hover {
-  background-color: #c23616;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .search-filter-container {
-    flex-direction: column;
-  }
-
-  form {
-    flex-direction: column;
-  }
-
-  form button {
-    width: 100%;
-  }
+.task-section h3 {
+  color: #636e72;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

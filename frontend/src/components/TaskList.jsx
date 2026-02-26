@@ -1,11 +1,13 @@
 import { useState } from "react";
 import API from "../api/axios";
+import "../css/tasks.css";
 
 export default function TaskList({ tasks, fetchTasks }) {
   const [editingId, setEditingId] = useState(null);
   const [editTask, setEditTask] = useState({ title: "", description: "" });
 
   const handleDelete = async (id) => {
+    if (!window.confirm("Delete this task?")) return;
     try {
       await API.delete(`/tasks/${id}`);
       fetchTasks();
@@ -49,44 +51,47 @@ export default function TaskList({ tasks, fetchTasks }) {
   };
 
   return (
-    <div>
+    <div className="task-list-container">
       {tasks.length === 0 ? (
-        <p>No tasks found.</p>
+        <p className="no-tasks">No tasks found. Time to add some!</p>
       ) : (
         tasks.map((task) => (
-          <div
-            key={task._id}
-            style={{ border: "1px solid gray", margin: "5px", padding: "5px" }}
-          >
+          <div key={task._id} className={`task-card ${task.status}`}>
             {editingId === task._id ? (
-              <>
+              <div className="edit-mode">
                 <input
+                  className="edit-input"
                   value={editTask.title}
-                  onChange={(e) =>
-                    setEditTask({ ...editTask, title: e.target.value })
-                  }
+                  onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
                 />
                 <textarea
+                  className="edit-textarea"
                   value={editTask.description}
-                  onChange={(e) =>
-                    setEditTask({ ...editTask, description: e.target.value })
-                  }
+                  onChange={(e) => setEditTask({ ...editTask, description: e.target.value })}
                 />
-                <button onClick={() => saveEdit(task._id)}>Save</button>
-                <button onClick={cancelEditing}>Cancel</button>
-              </>
+                <div className="button-group">
+                  <button className="save-btn" onClick={() => saveEdit(task._id)}>Save</button>
+                  <button className="cancel-btn" onClick={cancelEditing}>Cancel</button>
+                </div>
+              </div>
             ) : (
-              <>
-                <h4>Title: {task.title}</h4>
-                <p>Description: {task.description}</p>
-                <p>Status: {task.status}</p>
-                <p>Created: {new Date(task.createdAt).toLocaleString()}</p>
-                <button onClick={() => toggleStatus(task)}>
-                  {task.status === "completed" ? "Mark Pending" : "Mark Completed"}
-                </button>
-                <button onClick={() => startEditing(task)}>Edit</button>
-                <button onClick={() => handleDelete(task._id)}>Delete</button>
-              </>
+              <div className="view-mode">
+                <div className="task-content">
+                  <h4 className="task-title">{task.title}</h4>
+                  <p className="task-desc">{task.description}</p>
+                  <div className="task-meta">
+                    <span className={`status-badge ${task.status}`}>{task.status}</span>
+                    <span className="timestamp">{new Date(task.createdAt).toLocaleDateString()}</span>
+                  </div>
+                </div>
+                <div className="task-actions">
+                  <button className="status-btn" onClick={() => toggleStatus(task)}>
+                    {task.status === "completed" ? "↺" : "✓"}
+                  </button>
+                  <button className="edit-btn" onClick={() => startEditing(task)}>✎</button>
+                  <button className="delete-btn" onClick={() => handleDelete(task._id)}>🗑</button>
+                </div>
+              </div>
             )}
           </div>
         ))
