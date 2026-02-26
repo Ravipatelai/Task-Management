@@ -18,7 +18,8 @@ Frontend integration
 
 Production deployment
 
-Live URL: [Add your deployed link here]
+Live URL: https://task-management-njex.vercel.app/
+
 GitHub Repository: https://github.com/Ravipatelai/Task-Management
 
 Overview
