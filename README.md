@@ -1,23 +1,27 @@
 # Task Management Application
 
+A production-ready full-stack Task Management Application built to demonstrate strong backend architecture, authentication, security best practices, database handling, frontend integration, and deployment strategies.
+
+---
+
+## 🚀 Objective
+
+Build and deploy a secure and scalable Task Management system that demonstrates:
+
+- Clean backend architecture
+- JWT-based authentication
+- Strong security practices
+- Proper database handling
+- Frontend integration
+- Production deployment
+
+---
+
 **Live URL:** [Add your deployed link here]  
 **GitHub Repository:** [https://github.com/Ravipatelai/Task-Management]  
 
 ---
 
-## Table of Contents
-1. [Overview](#overview)  
-2. [Tech Stack](#tech-stack)  
-3. [Features](#features)  
-4. [Architecture](#architecture)  
-5. [Setup & Installation](#setup--installation)  
-6. [API Endpoints](#api-endpoints)  
-7. [Authentication & Security](#authentication--security)  
-8. [Deployment](#deployment)  
-9. [Screenshots](#screenshots)  
-10. [Notes](#notes)  
-
----
 
 ## Overview
 This is a **full-stack Task Management Application** built to allow users to manage tasks efficiently.  
@@ -28,10 +32,10 @@ The application demonstrates **JWT-based authentication**, **secure password has
 
 ## Tech Stack
 - **Backend:** Node.js, Express.js  
-- **Frontend:** React / Next.js (update based on your choice)  
-- **Database:** MongoDB / PostgreSQL  
+- **Frontend:** React  
+- **Database:** MongoDB 
 - **Authentication:** JWT stored in HTTP-only cookies  
-- **Deployment:** Vercel / Render / Railway / AWS / Azure (update your deployed platform)  
+- **Deployment:** Vercel 
 - **Other:** bcrypt (password hashing), dotenv (environment variables)  
 
 ---
@@ -60,6 +64,8 @@ Backend (Node.js + Express)
    |  REST APIs with JWT Authentication
    |
 Database (MongoDB)
+
+---
 
 ## Folder Structure
 Task-Management/
@@ -127,6 +133,92 @@ Task-Management/
 │
 └── README.md                     # Project documentation
 
+---
+
+
+# 🌐 API Documentation (Sample)
+
+## Register
+
+POST /api/auth/register
+
+Request:
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "StrongPassword123"
+}
+
+
+Response:
+
+{
+  "success": true,
+  "message": "User registered successfully"
+}
+Login
+
+POST /api/auth/login
+
+Response:
+
+{
+  "success": true,
+  "message": "Login successful"
+}
+
+(JWT stored in HTTP-only cookie)
+
+Get Tasks
+
+GET /api/tasks?page=1&limit=10&status=Completed&search=project
+
+Response:
+
+{
+  "success": true,
+  "data": [],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 25
+  }
+}
+🧠 Error Handling Format
+{
+  "success": false,
+  "error": "Validation Error",
+  "message": "Title is required"
+}
+
+---
+
+## Local Setup Instructions
+1. Clone Repository
+git clone <your-repo-url>
+cd task-manager
+2. Install Dependencies
+npm install
+3. Configure Environment Variables
+
+Create a .env file as shown above.
+
+4. Run Application
+npm run dev
+🌍 Deployment
+
+Application deployed and publicly accessible
+
+HTTPS enabled
+
+Secure cookie configuration in production
+
+Environment variables configured in cloud provider
+
+Proper CORS configuration
+
+---
 
 ## Backend Setup
 cd backend
