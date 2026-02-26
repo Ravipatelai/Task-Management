@@ -16,7 +16,11 @@ app.use(cookieParser());
 // Setup CORS *before* security middlewares so OPTIONS requests succeed
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: [
+      "http://localhost:5173",
+      "https://task-management-njex.vercel.app",
+      process.env.CLIENT_URL,
+    ],
     credentials: true,
   })
 );
