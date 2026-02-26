@@ -126,3 +126,27 @@ Task-Management/
 │   └── vite.config.js             # Build config
 │
 └── README.md                     # Project documentation
+
+
+## Backend Setup
+cd backend
+npm install
+
+## Frontend Setup
+cd ../frontend
+npm install
+
+## Environment Variables
+PORT=5000
+MONGO_URI=<your-mongo-db-connection-string>
+JWT_SECRET=<your-jwt-secret>
+NODE_ENV=development
+
+## Run Application
+# Backend
+cd backend
+npm run dev
+
+# Frontend
+cd frontend
+npm run dev
